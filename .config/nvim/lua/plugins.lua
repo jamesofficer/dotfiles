@@ -23,26 +23,18 @@ local nvim_cmp = {
 	"hrsh7th/nvim-cmp",
 	config = function()
 		local cmp = require("cmp")
+
 		cmp.setup({
 			window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			},
 			mapping = cmp.mapping.preset.insert({
-				["<Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					else
-						fallback()
-					end
-				end),
-				["<S-Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item()
-					else
-						fallback()
-					end
-				end),
+				["<C-a>"] = cmp.mapping.complete(),
+				["<C-k>"] = cmp.mapping.select_prev_item(),
+				["<C-j>"] = cmp.mapping.select_next_item(),
+				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
 			}),
 		})
 	end,
@@ -229,6 +221,16 @@ local comment = {
 	lazy = false,
 }
 
+local no_neck_pain = {
+	"shortcuts/no-neck-pain.nvim",
+	version = "*",
+	config = function()
+		require("no-neck-pain").setup({
+			width = 150,
+		})
+	end,
+}
+
 -- Neovim Development helpers (LUA api helpers etc)
 local neodev = { "folke/neodev.nvim", opts = {} }
 
@@ -251,4 +253,5 @@ require("lazy").setup({
 	lazygit,
 	comment,
 	neodev,
+	no_neck_pain,
 })
