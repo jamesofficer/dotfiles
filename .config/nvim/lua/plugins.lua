@@ -16,9 +16,38 @@ vim.opt.rtp:prepend(lazypath)
 -- LSP Plugins
 local lsp_config = { "neovim/nvim-lspconfig" }
 local mason_lsp_config = { "williamboman/mason-lspconfig.nvim" }
-local nvim_cmp = { "hrsh7th/nvim-cmp" }
 local cmp_nvim_lsp = { "hrsh7th/cmp-nvim-lsp" }
 local lua_snip = { "L3MON4D3/LuaSnip" }
+
+local nvim_cmp = {
+	"hrsh7th/nvim-cmp",
+	config = function()
+		local cmp = require("cmp")
+		cmp.setup({
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
+			mapping = cmp.mapping.preset.insert({
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end),
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end),
+			}),
+		})
+	end,
+}
+
 local mason = {
 	"williamboman/mason.nvim",
 	build = ":MasonUpdate",
