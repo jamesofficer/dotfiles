@@ -8,14 +8,12 @@ alias iuc="cd ~/Code/instant-ui-components/"
 alias ipd="cd ~/Code/instant-product-demo/"
 alias idr="cd ~/Code/instant-dashboard/"
 alias isf="cd ~/Code/instant-shared-functions/"
+alias fretguru="cd ~/Code/fretguru/"
 
 alias neoconfig="cd ~/.config/nvim/ && nvim ."
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
-alias wezconfig="hx ~/.wezterm.lua"
-alias hxconfig="cd ~/.config/helix && hx config.toml"
-alias zshrc="hx ~/.zshrc"
-
-alias zj="zellij"
-alias zjc="zellij -l compact"
+alias wezconfig="nvim ~/.wezterm.lua"
+alias hxconfig="nvim ~/.config/helix/config.toml"
+alias zshrc="nvim ~/.zshrc"
 
 alias stt="wezterm cli set-tab-title $1"

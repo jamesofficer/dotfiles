@@ -1,6 +1,18 @@
-# Ignore Everything
-*
+# Pictures
+# Movies
+# Applications
+# Code
+# Desktop
+# Downloads
+# Library
+# Movies
+# Music
+# Pictures
+# Public
+# .DS_STORE
 
-# Except for...
-!/.gitignore
-!.config/nvim
+**/*
+
+!*.config/helix/*
+!.wezterm.lua
+!.zshrc
