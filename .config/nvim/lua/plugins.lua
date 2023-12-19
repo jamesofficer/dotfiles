@@ -7,7 +7,7 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -31,8 +31,8 @@ local nvim_cmp = {
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-a>"] = cmp.mapping.complete(),
-				["<C-k>"] = cmp.mapping.select_prev_item(),
-				["<C-j>"] = cmp.mapping.select_next_item(),
+				["<Tab>"] = cmp.mapping.select_next_item(),
+				["<S-Tab>"] = cmp.mapping.select_prev_item(),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 			}),
@@ -91,6 +91,7 @@ local telescope = {
 	branch = "0.1.x",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
+		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 
 		vim.keymap.set("n", "<leader>r", builtin.resume, { desc = "[R]esume last search" })
@@ -106,7 +107,9 @@ local telescope = {
 		vim.keymap.set("n", "<leader>ss", builtin.lsp_document_symbols, { desc = "Document [S]ymbols" })
 		vim.keymap.set("n", "<leader>sS", builtin.lsp_dynamic_workspace_symbols, { desc = "Workspace [S]ymbols" })
 
-		require("telescope").setup({
+		telescope.load_extension("lsp_handlers")
+
+		telescope.setup({
 			defaults = {
 				mappings = {
 					n = {
@@ -118,17 +121,6 @@ local telescope = {
 				},
 			},
 		})
-	end,
-}
-
-local telescope_file_browser = {
-	"nvim-telescope/telescope-file-browser.nvim",
-	dependencies = {
-		"nvim-telescope/telescope.nvim",
-		"nvim-lua/plenary.nvim",
-	},
-	config = function()
-		vim.keymap.set("n", "<leader>e", "<CMD>Telescope file_browser<CR>", { desc = "File [E]xplorer" })
 	end,
 }
 
@@ -231,6 +223,22 @@ local no_neck_pain = {
 	end,
 }
 
+local telescope_lsp_handlers = {
+	"gbrlsnchs/telescope-lsp-handlers.nvim",
+}
+
+local mini_files = {
+	"echasnovski/mini.files",
+	version = false,
+	config = function()
+		require("mini.files").setup()
+	end,
+}
+
+local web_dev_icons = {
+	"nvim-tree/nvim-web-devicons",
+}
+
 -- Neovim Development helpers (LUA api helpers etc)
 local neodev = { "folke/neodev.nvim", opts = {} }
 
@@ -246,7 +254,7 @@ require("lazy").setup({
 	conform,
 	treesitter,
 	telescope,
-	telescope_file_browser,
+	telescope_lsp_handlers,
 	which_key,
 	flash,
 	codeium,
@@ -254,4 +262,6 @@ require("lazy").setup({
 	comment,
 	neodev,
 	no_neck_pain,
+	mini_files,
+	web_dev_icons,
 })

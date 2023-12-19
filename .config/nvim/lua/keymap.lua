@@ -15,6 +15,8 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
+vim.keymap.set("n", "<leader>e", "<CMD>:lua MiniFiles.open()<CR>", { desc = "Open file browser" })
+
 -- No Arrow Keys
 vim.keymap.set("n", "<Left>", ":echo 'Use h'<CR>")
 vim.keymap.set("n", "<Right>", ":echo 'Use l'<CR>")
