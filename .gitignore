@@ -1,18 +1,7 @@
-# Pictures
-# Movies
-# Applications
-# Code
-# Desktop
-# Downloads
-# Library
-# Movies
-# Music
-# Pictures
-# Public
-# .DS_STORE
-
 **/*
 
 !*.config/helix/*
+!*.config/nvim/*
+!*.config/kitty/*
 !.wezterm.lua
 !.zshrc
