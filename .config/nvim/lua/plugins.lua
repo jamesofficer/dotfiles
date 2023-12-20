@@ -93,6 +93,7 @@ local telescope = {
 	config = function()
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
+		local actions = require("telescope.actions")
 
 		vim.keymap.set("n", "<leader>r", builtin.resume, { desc = "[R]esume last search" })
 
@@ -110,13 +111,20 @@ local telescope = {
 		telescope.load_extension("lsp_handlers")
 
 		telescope.setup({
+			pickers = {
+				buffers = {
+					sort_mru = true,
+					ignore_current_buffer = true,
+				},
+			},
 			defaults = {
+				shorten_path = true,
 				mappings = {
 					n = {
-						["<c-d>"] = require("telescope.actions").delete_buffer,
+						["<c-d>"] = actions.delete_buffer,
 					},
 					i = {
-						["<c-d>"] = require("telescope.actions").delete_buffer,
+						["<c-d>"] = actions.delete_buffer,
 					},
 				},
 			},
