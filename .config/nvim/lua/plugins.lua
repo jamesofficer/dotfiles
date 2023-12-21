@@ -103,6 +103,7 @@ local telescope = {
 		vim.keymap.set("n", "<leader>sr", builtin.oldfiles, { desc = "[S]earch [R]ecent" })
 		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+		vim.keymap.set("n", "<leader>dl", builtin.diagnostics, { desc = "[D]iagnostics [L]ist" })
 		vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "Open Buffers" })
 
 		vim.keymap.set("n", "<leader>ss", builtin.lsp_document_symbols, { desc = "Document [S]ymbols" })
@@ -219,6 +220,9 @@ local lazygit = {
 local comment = {
 	"numToStr/Comment.nvim",
 	lazy = false,
+	config = function()
+		require("Comment").setup()
+	end,
 }
 
 local no_neck_pain = {
@@ -247,6 +251,34 @@ local web_dev_icons = {
 	"nvim-tree/nvim-web-devicons",
 }
 
+local wtf = {
+	"piersolenski/wtf.nvim",
+	dependencies = {
+		"MunifTanjim/nui.nvim",
+	},
+	opts = {
+		openai_api_key = "HIDDEN",
+	},
+	keys = {
+		{
+			"<leader>da",
+			mode = { "n", "x" },
+			function()
+				require("wtf").ai()
+			end,
+			desc = "Debug diagnostic with AI",
+		},
+		{
+			mode = { "n" },
+			"<leader>dg",
+			function()
+				require("wtf").search()
+			end,
+			desc = "Search diagnostic with Google",
+		},
+	},
+}
+
 -- Neovim Development helpers (LUA api helpers etc)
 local neodev = { "folke/neodev.nvim", opts = {} }
 
@@ -271,5 +303,6 @@ require("lazy").setup({
 	neodev,
 	no_neck_pain,
 	mini_files,
+	wtf,
 	web_dev_icons,
 })
