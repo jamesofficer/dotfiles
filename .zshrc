@@ -8,7 +8,7 @@ alias iuc="cd ~/Code/instant-ui-components/"
 alias ipd="cd ~/Code/instant-product-demo/"
 alias idr="cd ~/Code/instant-dashboard/"
 alias isf="cd ~/Code/instant-shared-functions/"
-alias fretguru="cd ~/Code/fretguru/"
+alias guru="cd ~/Code/fretguru/"
 
 alias neoconfig="cd ~/.config/nvim/ && nvim ."
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
@@ -17,3 +17,4 @@ alias hxconfig="nvim ~/.config/helix/config.toml"
 alias zshrc="nvim ~/.zshrc"
 
 alias stt="wezterm cli set-tab-title $1"
+export PATH=/opt/homebrew/bin:~/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/kitty.app/Contents/MacOS

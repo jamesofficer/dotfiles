@@ -10,12 +10,19 @@ conform.setup({
 
 		-- Use a sub-list to run only the first available formatter
 		-- TODO: Add biome
-		javascript = { { "prettierd", "prettier" } },
-		typescript = { { "prettierd", "prettier" } },
-		typescriptreact = { { "prettierd", "prettier" } },
-		json = { { "prettierd", "prettier" } },
+		javascript = { { "biome", "prettierd", "prettier" } },
+		typescript = { { "biome", "prettierd", "prettier" } },
+		typescriptreact = { { "biome", "prettierd", "prettier" } },
+		json = { { "biome", "prettierd", "prettier" } },
 	},
 	formatters = {
+		-- biome = {
+		-- 	command = "biome",
+		-- 	args = { "$FILENAME" },
+		-- 	to_stdin = true,
+		-- 	cwd = conform_util.root_file({ "biome.json" }),
+		-- 	require_cwd = true,
+		-- },
 		prettierd = {
 			command = "prettierd",
 			args = { "$FILENAME" },
