@@ -16,6 +16,8 @@ alias wezconfig="nvim ~/.wezterm.lua"
 alias hxconfig="nvim ~/.config/helix/config.toml"
 alias zshrc="nvim ~/.zshrc"
 alias lg="lazygit"
+alias nv="nvim ."
+alias start="yarn start"
 
 alias stt="wezterm cli set-tab-title $1"
 export PATH=/opt/homebrew/bin:~/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/kitty.app/Contents/MacOS

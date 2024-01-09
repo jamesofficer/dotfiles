@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+vim.keymap.set("n", "<C-s>", "<CMD>:w<CR>", { desc = "Save file" })
+
 vim.keymap.set("n", "<C-k>", "6k", { desc = "Move down 6 lines" })
 vim.keymap.set("n", "<C-j>", "6j", { desc = "Move up 6 lines" })
 
