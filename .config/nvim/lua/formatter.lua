@@ -2,6 +2,7 @@ local conform = require("conform")
 local conform_util = require("conform.util")
 
 conform.setup({
+    notify_on_error = true,
 	formatters_by_ft = {
 		lua = { "stylua" },
 
@@ -9,24 +10,19 @@ conform.setup({
 		-- python = { "isort", "black" },
 
 		-- Use a sub-list to run only the first available formatter
-		-- TODO: Add biome
-		javascript = { { "biome", "prettierd", "prettier" } },
-		typescript = { { "biome", "prettierd", "prettier" } },
-		typescriptreact = { { "biome", "prettierd", "prettier" } },
-		json = { { "biome", "prettierd", "prettier" } },
+		javascript = { { "prettierd", "biome", "prettier" } },
+		typescript = { { "prettierd", "biome", "prettier" } },
+		typescriptreact = { { "prettierd", "biome", "prettier" } },
+		json = { { "prettierd", "biome", "prettier" } },
 	},
 	formatters = {
-		-- biome = {
-		-- 	command = "biome",
-		-- 	args = { "$FILENAME" },
-		-- 	to_stdin = true,
-		-- 	cwd = conform_util.root_file({ "biome.json" }),
-		-- 	require_cwd = true,
-		-- },
+		biome = {
+			command = "biome",
+			cwd = conform_util.root_file({ "biome.json" }),
+			require_cwd = true,
+		},
 		prettierd = {
 			command = "prettierd",
-			args = { "$FILENAME" },
-			to_stdin = true,
 			cwd = conform_util.root_file({ "package.json" }),
 			require_cwd = true,
 		},
@@ -34,6 +30,7 @@ conform.setup({
 	format_on_save = function(bufnr)
 		-- Disable autoformat for files in a certain path ("node_modules" in this case).
 		local bufname = vim.api.nvim_buf_get_name(bufnr)
+
 		if bufname:match("/node_modules/") then
 			return
 		end
@@ -46,12 +43,12 @@ conform.setup({
 })
 
 -- Format on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		conform.format({ bufnr = args.buf })
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = "*",
+-- 	callback = function(args)
+-- 		conform.format({ bufnr = args.buf })
+-- 	end,
+-- })
 
 -- ":Format" command
 vim.api.nvim_create_user_command("Format", function(args)

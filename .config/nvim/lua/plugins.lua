@@ -279,6 +279,10 @@ local wtf = {
 	},
 }
 
+local gitblame = {
+    "f-person/git-blame.nvim",
+}
+
 -- Neovim Development helpers (LUA api helpers etc)
 local neodev = { "folke/neodev.nvim", opts = {} }
 
@@ -305,4 +309,5 @@ require("lazy").setup({
 	mini_files,
 	wtf,
 	web_dev_icons,
+    gitblame
 })
