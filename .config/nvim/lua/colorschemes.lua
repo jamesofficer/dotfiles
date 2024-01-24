@@ -1,17 +1,16 @@
 return {
-    {
-        "rebelot/kanagawa.nvim", 
-    },
-    {
-        "Shatur/neovim-ayu", 
-        config = function()
-            vim.cmd.colorscheme("ayu-mirage")
-        end,
-    },
-    {
-        "catppuccin/nvim", 
-        name = "catppuccin", 
-        priority = 1000 
-    }
+	{
+		"rebelot/kanagawa.nvim",
+		config = function()
+			vim.cmd.colorscheme("kanagawa-wave")
+		end,
+	},
+	{
+		"Shatur/neovim-ayu",
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+	},
 }
-
