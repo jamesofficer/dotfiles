@@ -4,8 +4,11 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.keymap.set("n", "<C-s>", "<CMD>:w<CR>", { desc = "Save file" })
 
-vim.keymap.set("n", "<C-k>", "6k", { desc = "Move down 6 lines" })
-vim.keymap.set("n", "<C-j>", "6j", { desc = "Move up 6 lines" })
+-- vim.keymap.set("n", "<C-k>", "6k", { desc = "Move down 6 lines" })
+-- vim.keymap.set("n", "<C-j>", "6j", { desc = "Move up 6 lines" })
+
+vim.keymap.set("n", "K", "6k", { desc = "Move down 6 lines" })
+vim.keymap.set("n", "J", "6j", { desc = "Move up 6 lines" })
 
 vim.keymap.set("n", "<leader>gg", "<CMD>:LazyGit<CR>", { desc = "Toggle Lazygit" })
 
@@ -34,7 +37,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local opts = { buffer = event.buf }
 
-		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+		vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
 		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
