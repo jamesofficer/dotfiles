@@ -1,9 +1,12 @@
 return {
 	{
-		"rebelot/kanagawa.nvim",
+		"Mofiqul/dracula.nvim",
 		config = function()
-			vim.cmd.colorscheme("kanagawa-wave")
+			vim.cmd.colorscheme("dracula")
 		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
 	},
 	{
 		"Shatur/neovim-ayu",
