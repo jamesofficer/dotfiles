@@ -1,0 +1,93 @@
+[
+	{
+		"name": "React Component",
+		"prefix": "rc",
+		"body": [
+			"import React from 'react'",
+			"",
+			"export function ${1}() {",
+			"  return (",
+			"    <div>",
+			"      $0",
+			"    </div>",
+			"  )",
+			"}"
+		]
+	},
+	{
+		"name": "React Component With Props",
+		"prefix": "rcwp",
+		"body": [
+			"interface ${1:ComponentName}Props {",
+			"  $2",
+			"}",
+			"",
+			"export function ${1:ComponentName}({ $3 }: ${1:ComponentName}Props) {",
+			"  return (",
+			"    <div>",
+			"      $0",
+			"    </div>",
+			"  )",
+			"}"
+		]
+	},
+	{
+		"name": "Instant React Component",
+		"prefix": "irc",
+		"body": [
+			"import { Box, Flex } from '@instantcheckout/instant-ui-components'",
+			"import { Heading, Text } from '@instantcheckout/instant-forge-ui'",
+			"",
+			"export function ${1}() {",
+			"  return (",
+			"    <Flex>",
+			"      $0",
+			"    </Flex>",
+			"  )",
+			"}"
+		]
+	},
+	{
+		"name": "Create Props",
+		"prefix": "cp",
+		"body": [
+			"interface Props {",
+			"  $0",
+			"}"
+		]
+	},
+	{
+		"name": "Create Function",
+		"prefix": "cf",
+		"body": [
+			"function ${1:functionName}() {",
+			"  $0",
+			"}"
+		]
+	},
+	{
+		"name": "Create Function with Params",
+		"prefix": "cfwp",
+		"body": [
+			"function ${1:functionName}(${2:params}: ${3:type}) {",
+			"  $0",
+			"}"
+		]
+	},
+	{
+		"name": "useState Hook",
+		"prefix": "us",
+		"body": [
+			"const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState<${2:string}>(${3:''})$0"
+		]
+	},
+	{
+		"name": "useEffect Hook",
+		"prefix": "ue",
+		"body": [
+			"useEffect(() => {",
+			"  $0",
+			"}, [])"
+		]
+	}
+]
