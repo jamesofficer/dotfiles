@@ -104,4 +104,5 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Dev layout - 3-pane Ghostty setup
-alias gologro="osascript ~/scripts/dev-layout.applescript"
+alias start:logro="osascript ~/scripts/dev-layout.applescript"
+alias start:dashboard="osascript ~/scripts/dashboard-layout.applescript"
