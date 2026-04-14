@@ -26,7 +26,7 @@ tell application "System Events"
 		delay 0.5
 
 		-- We're now in the right-bottom pane. cd and run pnpm start
-		keystroke "cd ~/Code/instant-dashboard && pnpm run start"
+		keystroke "cd ~/Code/instant-dashboard && pnpm i && pnpm start"
 		key code 36 -- Enter
 		delay 0.3
 
