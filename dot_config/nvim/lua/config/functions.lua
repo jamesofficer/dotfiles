@@ -29,3 +29,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		end
 	end,
 })
+
+-- Set the background color of the line number column to transparent.
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "FoldColumn", { bg = "NONE" })
+	end,
+})

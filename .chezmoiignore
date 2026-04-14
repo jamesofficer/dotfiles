@@ -1,0 +1,4 @@
+**/.DS_Store
+.config/nvim/.git/
+.config/nvim/lazy-lock.json
+.config/nvim/lsp/

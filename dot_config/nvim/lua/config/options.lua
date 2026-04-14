@@ -14,4 +14,6 @@ vim.opt.cursorline = true -- Show which line your cursor is on
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 
+vim.opt.statuscolumn = "%s %l   " -- sign, space, line number, two trailing spaces
+
 -- vim.opt.cmdheight = 0

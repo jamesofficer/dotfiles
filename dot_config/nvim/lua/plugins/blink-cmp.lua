@@ -2,6 +2,9 @@ return {
 	"saghen/blink.cmp",
 	version = "1.*",
 	opts = {
+		completion = {
+			accept = { auto_brackets = { enabled = false } },
+		},
 		keymap = {
 			preset = "super-tab",
 			["<CR>"] = { "accept", "fallback" },

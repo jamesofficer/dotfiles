@@ -7,6 +7,16 @@ return {
 		servers = {
 			-- 	lua_ls = {},
 			-- 	ts_ls = {},
+			vtsls = {
+				settings = {
+					typescript = {
+						updateImportsOnFileMove = { enabled = "always" },
+					},
+					javascript = {
+						updateImportsOnFileMove = { enabled = "always" },
+					},
+				},
+			},
 			biome = {
 				root_dir = function(fname)
 					return vim.fs.root(fname, { "biome.json", "biome.jsonc" })

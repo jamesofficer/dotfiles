@@ -84,12 +84,12 @@ return {
 		"sainnhe/everforest",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			-- Optionally configure and load the colorscheme
-			-- directly inside the plugin declaration.
-			vim.g.everforest_enable_italic = true
-			vim.cmd.colorscheme("everforest")
-		end,
+		-- config = function()
+		-- Optionally configure and load the colorscheme
+		-- directly inside the plugin declaration.
+		-- 	vim.g.everforest_enable_italic = true
+		-- 	vim.cmd.colorscheme("everforest")
+		-- end,
 	},
 	{ "savq/melange-nvim" },
 	{ "rebelot/kanagawa.nvim" },
@@ -132,9 +132,45 @@ return {
 		"loctvl842/monokai-pro.nvim",
 		lazy = false,
 		priority = 1000,
+	},
+	{
+		"everviolet/nvim",
+		name = "evergarden",
+		priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+		opts = {
+			theme = {
+				variant = "spring", -- 'winter'|'fall'|'spring'|'summer'
+				accent = "green",
+			},
+			editor = {
+				transparent_background = false,
+				sign = { color = "none" },
+				float = {
+					color = "mantle",
+					solid_border = false,
+				},
+				completion = {
+					color = "surface0",
+				},
+			},
+		},
 		config = function()
-			require("monokai-pro").setup()
-			vim.cmd.colorscheme("monokai-pro")
+			vim.cmd.colorscheme("evergarden")
 		end,
+	},
+	{
+		"webhooked/kanso.nvim",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"Matsuuu/pinkmare",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"danfry1/lume",
+		lazy = false,
+		priority = 1000,
 	},
 }
