@@ -1,0 +1,14 @@
+font-family = Codelia Ligatures
+font-size = 14
+font-thicken = false
+font-thicken-strength = 0
+adjust-cell-height = 40% 
+
+window-padding-x = 12
+window-padding-y = 12
+window-padding-color = extend
+
+keybind = performable:super+enter=toggle_split_zoom
+keybind = shift+enter=text:\n
+
+macos-option-as-alt = true
