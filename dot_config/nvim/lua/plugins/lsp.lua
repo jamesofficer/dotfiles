@@ -3,6 +3,7 @@
 -- lsp servers we want to use and their configuration
 -- see `:h lspconfig-all` for available servers and their settings
 local lsp_servers = {
+  biome = {},
   lua_ls = {
     -- https://luals.github.io/wiki/settings/ | `:h nvim_get_runtime_file`
     Lua = { workspace = { library = vim.api.nvim_get_runtime_file("lua", true) }, },
@@ -38,8 +39,15 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "grd", vim.lsp.buf.definition,
         { buffer = bufnr, desc = "vim.lsp.buf.definition()", })
 
-      vim.keymap.set("n", "grf", vim.lsp.buf.format,
-        { buffer = bufnr, desc = "vim.lsp.buf.format()", })
+      vim.keymap.set("n", "grf", function()
+        require("conform").format({
+          bufnr = bufnr,
+          async = true,
+          lsp_format = "fallback",
+        })
+      end, { buffer = bufnr, desc = "Format buffer", })
     end,
   })
+
+  vim.lsp.enable(server)
 end

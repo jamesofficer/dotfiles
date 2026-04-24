@@ -22,6 +22,17 @@ vim.keymap.set("n", "<leader>sl", function() extra.buf_lines({ scope = "current"
 vim.keymap.set("n", "<leader>sm", extra.marks, { desc = "[S]earch [M]arks", })
 vim.keymap.set("n", "<leader>sq", function() extra.list({ scope = "quickfix" }) end, { desc = "[S]earch [Q]uickfix", })
 vim.keymap.set("n", "<leader>sj", function() extra.list({ scope = "jump" }) end, { desc = "[S]earch [J]umps", })
+vim.keymap.set("n", "<leader>uc", function()
+  MiniPick.start({
+    source = {
+      name = "Colorschemes",
+      items = vim.fn.getcompletion("", "color"),
+      choose = function(item)
+        vim.cmd.colorscheme(item)
+      end,
+    },
+  })
+end, { desc = "[U]I [C]olorscheme", })
 
 vim.keymap.set("n", "grr", function()
   local import_patterns = { "^import ", "^from ", "require%(", "^#include " }

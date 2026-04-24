@@ -3,6 +3,7 @@
 -- jump multiple lines with J/K
 vim.keymap.set("n", "J", "6j", { desc = "Move down 6 lines" })
 vim.keymap.set("n", "K", "6k", { desc = "Move up 6 lines" })
+vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "[W]rite file" })
 
 -- lazygit in a floating terminal
 vim.keymap.set("n", "<leader>gg", function()
@@ -26,3 +27,13 @@ vim.keymap.set("n", "<leader>gg", function()
   })
   vim.cmd("startinsert")
 end, { desc = "[G]it Lazy[g]it" })
+
+vim.keymap.set("n", "<leader>cu", function()
+  vim.lsp.buf.code_action({
+    apply = true,
+    context = {
+      only = { "source.removeUnused" },
+      diagnostics = {},
+    },
+  })
+end, { desc = "Remove [U]nused imports" })

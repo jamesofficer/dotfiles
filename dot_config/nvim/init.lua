@@ -3,10 +3,10 @@ require("options")
 require("keybinds")
 
 -- INFO: plugins
-vim.cmd.colorscheme("catppuccin")
-
+require("plugins.theme")
 require("plugins.treesitter")
-require("plugins.blink")
+require("plugins.autocomplete")
+require("plugins.conform")
 require("plugins.lsp")
 require("plugins.mini")
 require("plugins.mini-pick")

@@ -21,7 +21,9 @@ miniclue.setup({
     { mode = "n", keys = "]" },
   },
   clues = {
+    { mode = "n", keys = "<Leader>c", desc = "+[C]ode" },
     { mode = "n", keys = "<Leader>s", desc = "+[S]earch" },
+    { mode = "n", keys = "<Leader>u", desc = "+[U]I" },
     { mode = "n", keys = "<Leader>g", desc = "+[G]it" },
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),
