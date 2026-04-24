@@ -1,9 +1,0 @@
-[
-	{ "prefix": "cl", "body": "console.log(\"$1\", $1);$0", "name": "console.log with string" },
-	{ "prefix": "clog", "body": "console.log($0);", "name": "console.log" },
-	{ "prefix": "rb", "body": "border: 1px solid red;", "name": "Red border in CSS" },
-	{ "prefix": "rbq", "body": "border: \"1px solid red\",", "name": "Red border in CSS with quotes" },
-	{ "prefix": "rbc", "body": "css={{ border: '1px solid red' }}", "name": "Red border as component prop" }
-	{ "prefix": "rob", "body": "outline: \"1px solid red\"", "name": "Red outline inline style" }
-
-]

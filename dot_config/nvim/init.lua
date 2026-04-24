@@ -1,40 +1,19 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
-end
+-- INFO: options
+require("options")
+require("keybinds")
 
-vim.opt.rtp:prepend(lazypath)
+-- INFO: plugins
+vim.cmd.colorscheme("catppuccin")
 
-require("config/options")
-require("config/keybinds")
-require("config/functions")
-require("lazy").setup("plugins")
+require("plugins.treesitter")
+require("plugins.blink")
+require("plugins.lsp")
+require("plugins.mini")
+require("plugins.mini-pick")
+require("plugins.mini-clue")
+require("plugins.mini-files")
+require("plugins.lualine")
+require("plugins.utility")
 
--- local lspconfig = require("lspconfig")
---
--- local lsps = { "typescript-language-server", "copilot-language-server" }
---
--- for _, lsp in pairs(lsps) do
--- 	local setup = {}
--- 	lspconfig[lsp].setup(setup)
---
--- 	vim.lsp.enable(lsp)
--- 	vim.lsp.config(lsp, setup)
--- end
-
--- vim.lsp.enable("copilot-language-server")
--- vim.lsp.config("copilot-language-server", {
--- 	nes = {
--- 		enabled = true,
--- 	},
--- })
+-- uncomment to enable automatic plugin updates
+-- vim.pack.update()
