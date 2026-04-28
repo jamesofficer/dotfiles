@@ -20,6 +20,7 @@ vim.opt.mouse = "a"
 
 -- don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+vim.opt.cmdheight = 0
 
 -- sync clipboard between OS and Neovim.
 --  remove this option if you want your OS clipboard to remain independent.
@@ -55,6 +56,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", }
+vim.opt.fillchars:append({ eob = " " })
 
 -- preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -88,3 +90,12 @@ vim.diagnostic.config({
 
 -- clear search highlights with <Esc>
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})

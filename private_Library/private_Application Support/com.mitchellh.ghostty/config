@@ -1,11 +1,11 @@
 font-family = Codelia Ligatures
 font-size = 14
-font-thicken = false
+font-thicken = true
 font-thicken-strength = 0
 adjust-cell-height = 40% 
 
 window-padding-x = 12
-window-padding-y = 12
+window-padding-y = 0
 window-padding-color = extend
 
 keybind = performable:super+enter=toggle_split_zoom
