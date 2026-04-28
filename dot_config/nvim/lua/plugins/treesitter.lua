@@ -5,6 +5,8 @@ local ts_parsers = {
   "lua", "c", "rust", "go",
   "vim", "vimdoc", "query",
   "markdown", "markdown_inline",
+  "typescript", "tsx", "javascript",
+  "html", "css", "json", "yaml", "toml",
 }
 
 local nts = require("nvim-treesitter")
