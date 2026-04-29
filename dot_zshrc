@@ -47,10 +47,11 @@ installPackages() {
   fi
 }
 
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 alias inst=installPackages
 alias st=runDevServer
+alias csw="cswap --switch"
 
 alias ibr="cd ~/Code/instant-backend/"
 alias idr="cd ~/Code/instant-dashboard/"
@@ -106,3 +107,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Dev layout - 3-pane Ghostty setup
 alias start:logro="osascript ~/scripts/dev-layout.applescript"
 alias start:dashboard="osascript ~/scripts/dashboard-layout.applescript"
+
+# pnpm
+export PNPM_HOME="/Users/jamesofficer/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

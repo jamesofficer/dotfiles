@@ -1,9 +1,49 @@
 -- fuzzy finder
 require("mini.pick").setup()
 require("mini.extra").setup()
+require("mini.visits").setup()
 
 local pick = MiniPick.builtin
 local extra = MiniExtra.pickers
+
+-- frecency-sorted file picker (cwd-scoped, robust frecency = recency + frequency)
+local function pick_frecent_files()
+  local cwd = vim.fn.getcwd()
+  local visited = MiniVisits.list_paths(cwd) -- already sorted by default frecency
+  local seen = {}
+  for _, p in ipairs(visited) do seen[p] = true end
+
+  local items = vim.deepcopy(visited)
+
+  -- append remaining cwd files (unvisited) so picker still fuzzy-matches everything
+  local fd = vim.fn.executable("fd") == 1 and { "fd", "--type", "f", "--hidden", "--exclude", ".git" }
+    or { "rg", "--files", "--hidden", "--glob", "!.git" }
+  local out = vim.fn.systemlist(fd)
+  for _, rel in ipairs(out) do
+    local abs = vim.fs.normalize(cwd .. "/" .. rel)
+    if not seen[abs] then table.insert(items, abs) end
+  end
+
+  -- show paths relative to cwd
+  local cwd_prefix = cwd .. "/"
+  local display = {}
+  for _, p in ipairs(items) do
+    local rel = p
+    if rel:sub(1, #cwd_prefix) == cwd_prefix then rel = rel:sub(#cwd_prefix + 1) end
+    table.insert(display, { path = p, text = rel })
+  end
+
+  MiniPick.start({
+    source = {
+      name = "Files (frecency)",
+      items = display,
+      show = function(buf_id, items_to_show, query)
+        MiniPick.default_show(buf_id, items_to_show, query, { show_icons = true })
+      end,
+      choose = MiniPick.default_choose,
+    },
+  })
+end
 
 local function pick_lsp_references_without_imports()
   local import_patterns = { "^import ", "^from ", "require%(", "^#include " }
@@ -107,7 +147,7 @@ local function pick_lsp_definitions()
   end)
 end
 
-vim.keymap.set("n", "<leader>ss", pick.files, { desc = "[S]earch Files ([S]mart)", })
+vim.keymap.set("n", "<leader>ss", pick_frecent_files, { desc = "[S]earch Files ([S]mart frecency)", })
 vim.keymap.set("n", "<leader>sa", pick.files, { desc = "[S]earch Files ([A]ll)", })
 vim.keymap.set("n", "<leader><leader>", pick.buffers, { desc = "Buffers", })
 vim.keymap.set("n", "<leader>sg", pick.grep_live, { desc = "[S]earch by [G]rep", })

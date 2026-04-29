@@ -32,6 +32,11 @@ local kind_hl = {
   TypeParameter = "@variable.parameter",
 }
 
+-- manually trigger completion menu
+vim.keymap.set("i", "<C-f>", function()
+  vim.lsp.completion.get()
+end, { desc = "Trigger completion" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("user.lsp-completion", { clear = true }),
   callback = function(args)

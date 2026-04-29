@@ -81,48 +81,38 @@ local function add_missing_imports()
   })
 end
 
-local function organize_imports(bufnr)
-  bufnr = bufnr or 0
+local function run_code_action(kind, bufnr, cb)
+  vim.lsp.buf.code_action({
+    apply = true,
+    context = { only = { kind }, diagnostics = {} },
+  })
+  -- code_action with apply is async; defer next step
+  if cb then vim.defer_fn(cb, 100) end
+end
 
-  local clients = vim.lsp.get_clients({ bufnr = bufnr })
-  local biome_available = false
-
-  for _, client in ipairs(clients) do
-    if client.name == "biome" then
-      biome_available = true
-      break
-    end
+local function organize_imports_kind(bufnr)
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr or 0 })) do
+    if client.name == "biome" then return "source.organizeImports.biome" end
   end
-
-  local action = biome_available and "source.organizeImports.biome" or "source.organizeImports.ts"
-
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { action },
-      diagnostics = {},
-    },
-  })
+  return "source.organizeImports.ts"
 end
 
-local function remove_unused_imports()
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { "source.removeUnused" },
-      diagnostics = {},
-    },
-  })
+local function organize_imports(bufnr)
+  run_code_action(organize_imports_kind(bufnr), bufnr)
 end
 
-local function fix_autofixable_issues()
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { "source.fixAll.biome" },
-      diagnostics = {},
-    },
-  })
+local function remove_unused_imports(bufnr)
+  bufnr = bufnr or 0
+  run_code_action(organize_imports_kind(bufnr), bufnr, function()
+    run_code_action("source.removeUnused", bufnr)
+  end)
+end
+
+local function fix_autofixable_issues(bufnr)
+  bufnr = bufnr or 0
+  run_code_action(organize_imports_kind(bufnr), bufnr, function()
+    run_code_action("source.fixAll.biome", bufnr)
+  end)
 end
 
 -- configure each lsp server on the table
@@ -137,8 +127,8 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
         { buffer = bufnr, desc = "Code action", })
 
-      vim.keymap.set("n", "<leader>cf", fix_autofixable_issues,
-        { buffer = bufnr, desc = "Fix autofixable issues", })
+      vim.keymap.set("n", "<leader>cf", function() fix_autofixable_issues(bufnr) end,
+        { buffer = bufnr, desc = "Fix autofixable issues + organize imports", })
 
       vim.keymap.set("n", "<leader>cF", function()
         require("conform").format({
@@ -161,8 +151,8 @@ for server, config in pairs(lsp_servers) do
         organize_imports(bufnr)
       end, { buffer = bufnr, desc = "Organize imports", })
 
-      vim.keymap.set("n", "<leader>cu", remove_unused_imports,
-        { buffer = bufnr, desc = "Remove unused imports", })
+      vim.keymap.set("n", "<leader>cu", function() remove_unused_imports(bufnr) end,
+        { buffer = bufnr, desc = "Remove unused + organize imports", })
 
       vim.keymap.set("n", "<leader>cx", function()
         vim.lsp.codelens.refresh({ bufnr = bufnr })
