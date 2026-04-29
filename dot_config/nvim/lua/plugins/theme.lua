@@ -22,17 +22,6 @@ evergarden.setup({
       color = "surface0",
     },
   },
-  overrides = {
-    MiniPickMatchCurrent = {
-      "#1E2326",
-      "#7FA563",
-      style = { "bold" },
-    },
-    MiniPickMatchMarked = {
-      "#1E2326",
-      "#5FAE97",
-    },
-  },
 })
 
 vim.cmd.colorscheme("evergarden")

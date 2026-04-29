@@ -6,6 +6,8 @@ vim.keymap.set("n", "K", "6k", { desc = "Move up 6 lines" })
 vim.keymap.set("n", "<S-Down>", "6j", { desc = "Move down 6 lines" })
 vim.keymap.set("n", "<S-Up>", "6k", { desc = "Move up 6 lines" })
 vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "[W]rite file" })
+vim.keymap.set("n", "<leader>uy", "<cmd>silent %y+<cr>", { desc = "[Y]ank entire buffer to clipboard" })
+vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover", silent = true })
 
 -- splits
 vim.keymap.set("n", "<leader>tv", "<CMD>:vsplit<CR>", { desc = "Split [V]ertically" })
