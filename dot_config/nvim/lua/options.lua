@@ -6,7 +6,7 @@
 -- set <space> as the leader key
 -- must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
 -- enable true color support
 vim.opt.termguicolors = true

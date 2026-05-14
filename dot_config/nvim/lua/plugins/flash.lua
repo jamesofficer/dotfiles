@@ -5,6 +5,14 @@ vim.pack.add({
 
 require("flash").setup()
 
+-- make the jump label stand out — invert Normal so it adapts to light/dark themes
+local function set_flash_hl()
+  local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+  vim.api.nvim_set_hl(0, "FlashLabel", { fg = normal.bg, bg = normal.fg, bold = true })
+end
+set_flash_hl()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = set_flash_hl })
+
 local flash = require("flash")
 
 vim.keymap.set({ "n", "x", "o" }, "s", function() flash.jump() end, { desc = "Flash" })

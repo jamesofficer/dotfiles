@@ -19,3 +19,36 @@ vim.keymap.set("n", "&", function() vim.diagnostic.jump({ count = 1, float = tru
 vim.keymap.set("n", "|", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Prev Diagnostic" })
 
 vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "[G]it Lazy[g]it" })
+
+-- quickfix
+vim.keymap.set("n", "<leader>qa", function()
+  vim.fn.setqflist({ {
+    filename = vim.fn.expand("%"),
+    lnum = vim.fn.line("."),
+    col = vim.fn.col("."),
+    text = vim.api.nvim_get_current_line(),
+  } }, "a")
+end, { desc = "[Q]uickfix [A]dd current line" })
+
+vim.keymap.set("n", "<leader>qr", function()
+  local list = vim.fn.getqflist()
+  if #list == 0 then return end
+  if vim.bo.filetype == "qf" then
+    table.remove(list, vim.fn.line("."))
+  else
+    local file = vim.fn.expand("%:p")
+    local lnum = vim.fn.line(".")
+    for i = #list, 1, -1 do
+      local entry_file = vim.fn.fnamemodify(vim.fn.bufname(list[i].bufnr), ":p")
+      if entry_file == file and list[i].lnum == lnum then
+        table.remove(list, i)
+      end
+    end
+  end
+  vim.fn.setqflist(list, "r")
+end, { desc = "[Q]uickfix [R]emove entry" })
+
+vim.keymap.set("n", "<leader>qq", function() Snacks.picker.qflist() end, { desc = "[Q]uickfix picker" })
+vim.keymap.set("n", "<leader>qn", "<cmd>cnext<cr>", { desc = "[Q]uickfix [N]ext" })
+vim.keymap.set("n", "<leader>qp", "<cmd>cprev<cr>", { desc = "[Q]uickfix [P]rev" })
+vim.keymap.set("n", "<leader>qx", function() vim.fn.setqflist({}, "r") end, { desc = "[Q]uickfix clear" })

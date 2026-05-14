@@ -30,7 +30,7 @@ map("<leader>ss", function()
 end, "[S]earch Files ([S]mart frecency)")
 map("<leader>sa", function() picker.files() end, "[S]earch Files ([A]ll)")
 map("<leader>sS", function() picker.git_files() end, "Files (in Git)")
-map("<leader>sc", function() picker.recent() end, "[S]earch Re[c]ent Files")
+map("<leader>sc", function() picker.recent({ filter = { cwd = true } }) end, "[S]earch Re[c]ent Files")
 map("<leader>se", function() picker.explorer() end, "File [E]xplorer")
 map("<leader><leader>", function() picker.buffers() end, "Buffers")
 
@@ -55,7 +55,16 @@ map("<leader>sy", function()
   })
 end, "[S]earch LSP S[y]mbols")
 map("<leader>sY", function() picker.lsp_workspace_symbols() end, "[S]earch LSP S[Y]mbols (Workspace)")
-map("grr", function() picker.lsp_references() end, "LSP References")
+map("grr", function()
+  picker.lsp_references({
+    transform = function(item)
+      local line = item.line or item.text or ""
+      if line:match("^%s*import%s") or line:match("^%s*}%s*from%s") then
+        return false
+      end
+    end,
+  })
+end, "LSP References")
 map("gd", function() picker.lsp_definitions() end, "LSP Definitions")
 map("gI", function() picker.lsp_implementations() end, "LSP Implementations")
 map("gy", function() picker.lsp_type_definitions() end, "LSP Type Definitions")
