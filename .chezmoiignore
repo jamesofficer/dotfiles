@@ -2,3 +2,5 @@
 .config/nvim/.git/
 .config/nvim/lazy-lock.json
 .config/nvim/lsp/
+.config/nvim/nvim.log
+.config/nvim/.claude

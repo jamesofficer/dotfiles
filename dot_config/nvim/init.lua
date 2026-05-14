@@ -19,6 +19,7 @@ require("plugins.gitsigns")
 require("plugins.flash")
 require("plugins.keep-split-ratio")
 require("plugins.grug-far")
+require("plugins.spider")
 
 -- uncomment to enable automatic plugin updates
 -- vim.pack.update()
