@@ -1,15 +1,15 @@
--- dev-layout.applescript
--- Creates a 3-pane Ghostty layout for logro:
---   default:  neovim (left), claude (right-top), pnpm start:sim (right-bottom)
---   --left:   claude (left-top), pnpm start:sim (left-bottom), neovim (right)
+-- forge-layout.applescript
+-- Creates a 3-pane Ghostty layout for instant-forge-ui:
+--   default:  neovim (left), claude (right-top), pnpm start (right-bottom)
+--   --left:   claude (left-top), pnpm start (left-bottom), neovim (right)
 --
 -- Prerequisites:
 --   - Ghostty 1.3.0+
 --   - macOS Accessibility permissions for Ghostty
 --
 -- Usage:
---   osascript ~/scripts/dev-layout.applescript
---   osascript ~/scripts/dev-layout.applescript --left
+--   osascript ~/scripts/forge-layout.applescript
+--   osascript ~/scripts/forge-layout.applescript --left
 
 on run argv
 	set leftMode to false
@@ -25,10 +25,10 @@ on run argv
 
 	tell application "System Events"
 		tell process "Ghostty"
-			-- Rename tab to "logro" (Cmd+R = prompt_tab_title)
+			-- Rename tab to "forge" (Cmd+R = prompt_tab_title)
 			keystroke "r" using {command down}
 			delay 0.3
-			keystroke "logro"
+			keystroke "forge"
 			key code 36 -- Enter
 			delay 0.3
 
@@ -38,7 +38,7 @@ on run argv
 				delay 0.5
 
 				-- In right pane: run neovim
-				keystroke "cd ~/Code/logro && nv"
+				keystroke "cd ~/Code/instant-forge-ui && nv"
 				key code 36 -- Enter
 				delay 0.3
 
@@ -46,12 +46,12 @@ on run argv
 				key code 123 using {command down, option down}
 				delay 0.3
 
-				-- Split down -> focus moves to left-bottom (pnpm start:sim)
+				-- Split down -> focus moves to left-bottom (pnpm)
 				keystroke "d" using {command down, shift down}
 				delay 0.5
 
-				-- In left-bottom pane: run pnpm start:sim
-				keystroke "cd ~/Code/logro/packages/app && pnpm run start:sim"
+				-- In left-bottom pane: run pnpm start
+				keystroke "cd ~/Code/instant-forge-ui && pnpm i && pnpm start"
 				key code 36 -- Enter
 				delay 0.3
 
@@ -60,7 +60,7 @@ on run argv
 				delay 0.3
 
 				-- In left-top pane: run claude
-				keystroke "cd ~/Code/logro && claude"
+				keystroke "cd ~/Code/instant-forge-ui && claude"
 				key code 36 -- Enter
 			else
 				-- Default: stacked panes on the right.
@@ -72,8 +72,8 @@ on run argv
 				keystroke "d" using {command down, shift down}
 				delay 0.5
 
-				-- In right-bottom pane: run pnpm start:sim
-				keystroke "cd ~/Code/logro/packages/app && pnpm run start:sim"
+				-- In right-bottom pane: run pnpm start
+				keystroke "cd ~/Code/instant-forge-ui && pnpm i && pnpm start"
 				key code 36 -- Enter
 				delay 0.3
 
@@ -82,7 +82,7 @@ on run argv
 				delay 0.3
 
 				-- In right-top pane: run claude
-				keystroke "cd ~/Code/logro && claude"
+				keystroke "cd ~/Code/instant-forge-ui && claude"
 				key code 36 -- Enter
 				delay 0.3
 
@@ -91,7 +91,7 @@ on run argv
 				delay 0.3
 
 				-- In left pane: run neovim
-				keystroke "cd ~/Code/logro && nv"
+				keystroke "cd ~/Code/instant-forge-ui && nv"
 				key code 36 -- Enter
 			end if
 		end tell

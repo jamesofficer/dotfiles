@@ -71,6 +71,48 @@ local function peek_definition()
   end)
 end
 
+local function rename_symbol()
+  local current = vim.fn.expand("<cword>")
+  if current == "" then
+    vim.notify("No symbol under cursor", vim.log.levels.WARN)
+    return
+  end
+  vim.ui.input({ prompt = "Rename: ", default = current }, function(new_name)
+    if not new_name or new_name == "" or new_name == current then return end
+
+    local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/rename" })
+    if #clients == 0 then
+      vim.notify("No LSP client supports rename", vim.log.levels.WARN)
+      return
+    end
+
+    local total_files = {}
+    local pending = #clients
+
+    for _, client in ipairs(clients) do
+      local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+      params.newName = new_name
+      client:request("textDocument/rename", params, function(err, result)
+        pending = pending - 1
+        if err then
+          vim.notify("Rename error from " .. client.name .. ": " .. err.message, vim.log.levels.ERROR)
+        elseif result then
+          vim.lsp.util.apply_workspace_edit(result, client.offset_encoding)
+          for uri in pairs(result.changes or {}) do total_files[uri] = true end
+          for _, doc in ipairs(result.documentChanges or {}) do
+            if doc.textDocument and doc.textDocument.uri then total_files[doc.textDocument.uri] = true end
+          end
+        end
+        if pending == 0 then
+          vim.cmd("silent! noautocmd wall")
+          local count = vim.tbl_count(total_files)
+          vim.notify(string.format("Renamed '%s' → '%s' across %d file(s)", current, new_name, count))
+        end
+      end, 0)
+    end
+  end)
+end
+
 local function add_missing_imports()
   vim.lsp.buf.code_action({
     apply = true,
@@ -82,12 +124,30 @@ local function add_missing_imports()
 end
 
 local function run_code_action(kind, bufnr, cb)
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = { only = { kind }, diagnostics = {} },
-  })
-  -- code_action with apply is async; defer next step
-  if cb then vim.defer_fn(cb, 100) end
+  bufnr = bufnr or 0
+  local clients = vim.lsp.get_clients({ bufnr = bufnr, method = "textDocument/codeAction" })
+  local pending = #clients
+  if pending == 0 then
+    if cb then cb() end
+    return
+  end
+
+  for _, client in ipairs(clients) do
+    local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+    params.context = { only = { kind }, diagnostics = {} }
+    client:request("textDocument/codeAction", params, function(_, result)
+      for _, action in ipairs(result or {}) do
+        if action.edit then
+          vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+        end
+        if action.command then
+          client:request("workspace/executeCommand", action.command, function() end, bufnr)
+        end
+      end
+      pending = pending - 1
+      if pending == 0 and cb then cb() end
+    end, bufnr)
+  end
 end
 
 local function organize_imports_kind(bufnr)
@@ -141,7 +201,7 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "<leader>cp", peek_definition,
         { buffer = bufnr, desc = "Peek definition", })
 
-      vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename,
+      vim.keymap.set("n", "<leader>cr", rename_symbol,
         { buffer = bufnr, desc = "Rename symbol", })
 
       vim.keymap.set("n", "<leader>ci", add_missing_imports,

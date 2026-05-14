@@ -1,50 +1,99 @@
 -- dashboard-layout.applescript
--- Creates a 3-pane Ghostty layout: neovim (left), claude (right-top), pnpm start (right-bottom)
+-- Creates a 3-pane Ghostty layout for instant-dashboard:
+--   default:  neovim (left), claude (right-top), pnpm start (right-bottom)
+--   --left:   claude (left-top), pnpm start (left-bottom), neovim (right)
 --
 -- Prerequisites:
 --   - Ghostty 1.3.0+
 --   - macOS Accessibility permissions for Ghostty
 --
--- Usage: osascript ~/scripts/dashboard-layout.applescript
+-- Usage:
+--   osascript ~/scripts/dashboard-layout.applescript
+--   osascript ~/scripts/dashboard-layout.applescript --left
 
-tell application "Ghostty"
-	activate
-end tell
+on run argv
+	set leftMode to false
+	repeat with arg in argv
+		if (arg as string) is "--left" then set leftMode to true
+	end repeat
 
-delay 0.5
-
-tell application "System Events"
-	tell process "Ghostty"
-		-- We start in the left pane (will become neovim)
-
-		-- Split right to create right-top pane
-		keystroke "d" using {command down}
-		delay 0.5
-
-		-- We're now in the right-top pane. Split down to create right-bottom pane.
-		keystroke "d" using {command down, shift down}
-		delay 0.5
-
-		-- We're now in the right-bottom pane. cd and run pnpm start
-		keystroke "cd ~/Code/instant-dashboard && pnpm i && pnpm start"
-		key code 36 -- Enter
-		delay 0.3
-
-		-- Navigate to right-top pane (Cmd+Option+Up = goto_split:up)
-		key code 126 using {command down, option down}
-		delay 0.3
-
-		-- We're now in right-top pane. cd and run claude
-		keystroke "cd ~/Code/instant-dashboard && claude"
-		key code 36 -- Enter
-		delay 0.3
-
-		-- Navigate to left pane (Cmd+Option+Left = goto_split:left)
-		key code 123 using {command down, option down}
-		delay 0.3
-
-		-- We're now in the left pane. cd and run neovim
-		keystroke "cd ~/Code/instant-dashboard && nv"
-		key code 36 -- Enter
+	tell application "Ghostty"
+		activate
 	end tell
-end tell
+
+	delay 0.5
+
+	tell application "System Events"
+		tell process "Ghostty"
+			-- Rename tab to "dashboard" (Cmd+R = prompt_tab_title)
+			keystroke "r" using {command down}
+			delay 0.3
+			keystroke "dashboard"
+			key code 36 -- Enter
+			delay 0.3
+
+			if leftMode then
+				-- Start in single pane. Split right -> focus moves to right pane (becomes neovim).
+				keystroke "d" using {command down}
+				delay 0.5
+
+				-- In right pane: run neovim
+				keystroke "cd ~/Code/instant-dashboard && nv"
+				key code 36 -- Enter
+				delay 0.3
+
+				-- Goto left pane (Cmd+Option+Left)
+				key code 123 using {command down, option down}
+				delay 0.3
+
+				-- Split down -> focus moves to left-bottom (pnpm)
+				keystroke "d" using {command down, shift down}
+				delay 0.5
+
+				-- In left-bottom pane: run pnpm start
+				keystroke "cd ~/Code/instant-dashboard && pnpm i && pnpm start"
+				key code 36 -- Enter
+				delay 0.3
+
+				-- Goto left-top pane (Cmd+Option+Up)
+				key code 126 using {command down, option down}
+				delay 0.3
+
+				-- In left-top pane: run claude
+				keystroke "cd ~/Code/instant-dashboard && claude"
+				key code 36 -- Enter
+			else
+				-- Default: stacked panes on the right.
+				-- Split right to create right-top pane
+				keystroke "d" using {command down}
+				delay 0.5
+
+				-- In right-top pane. Split down to create right-bottom pane.
+				keystroke "d" using {command down, shift down}
+				delay 0.5
+
+				-- In right-bottom pane: run pnpm start
+				keystroke "cd ~/Code/instant-dashboard && pnpm i && pnpm start"
+				key code 36 -- Enter
+				delay 0.3
+
+				-- Goto right-top pane (Cmd+Option+Up)
+				key code 126 using {command down, option down}
+				delay 0.3
+
+				-- In right-top pane: run claude
+				keystroke "cd ~/Code/instant-dashboard && claude"
+				key code 36 -- Enter
+				delay 0.3
+
+				-- Goto left pane (Cmd+Option+Left)
+				key code 123 using {command down, option down}
+				delay 0.3
+
+				-- In left pane: run neovim
+				keystroke "cd ~/Code/instant-dashboard && nv"
+				key code 36 -- Enter
+			end if
+		end tell
+	end tell
+end run

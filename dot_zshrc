@@ -61,6 +61,7 @@ alias ifr="cd ~/Code/instant-forge-ui/"
 alias ijs="cd ~/Code/instant-js/"
 alias isf="cd ~/Code/instant-shared-functions/"
 alias ier="cd ~/Code/instant-emails/"
+alias iee="cd ~/Code/instant-emails-engine/"
 
 alias logro="cd ~/Code/logro/"
 alias logrostart="cd ~/Code/logro/packages/app && pnpm run start:sim"
@@ -107,6 +108,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Dev layout - 3-pane Ghostty setup
 alias start:logro="osascript ~/scripts/dev-layout.applescript"
 alias start:dashboard="osascript ~/scripts/dashboard-layout.applescript"
+alias start:forge="osascript ~/scripts/forge-layout.applescript"
 
 # pnpm
 export PNPM_HOME="/Users/jamesofficer/Library/pnpm"
@@ -115,3 +117,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+

@@ -17,6 +17,7 @@ require("plugins.lualine")
 require("plugins.utility")
 require("plugins.gitsigns")
 require("plugins.flash")
+require("plugins.keep-split-ratio")
 
 -- uncomment to enable automatic plugin updates
 -- vim.pack.update()

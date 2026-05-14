@@ -5,6 +5,8 @@ vim.pack.add({
 
 require("snacks").setup({
   picker = { enabled = true },
+  gitbrowse = { enabled = true },
+  lazygit = { enabled = true },
 })
 
 -- prevent native autocomplete popup inside picker input
@@ -68,6 +70,7 @@ map("<leader>su", function() picker.undo() end, "[S]earch [U]ndo History")
 -- git
 map("<leader>gs", function() picker.git_status() end, "[G]it [S]tatus")
 map("<leader>gl", function() picker.git_log() end, "[G]it [L]og")
+map("<leader>gB", function() Snacks.gitbrowse() end, "[G]it [B]rowse (open in browser)")
 
 -- misc
 map("<leader>sA", function() picker() end, "All Pickers")
