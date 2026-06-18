@@ -6,6 +6,7 @@ vim.keymap.set("n", "K", "6k", { desc = "Move up 6 lines" })
 vim.keymap.set("n", "<S-Down>", "6j", { desc = "Move down 6 lines" })
 vim.keymap.set("n", "<S-Up>", "6k", { desc = "Move up 6 lines" })
 vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "[W]rite file" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { desc = "[B]uffer [D]elete" })
 vim.keymap.set("n", "<leader>uy", "<cmd>silent %y+<cr>", { desc = "[Y]ank entire buffer to clipboard" })
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover", silent = true })
 
@@ -13,6 +14,7 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { desc = "LSP Hover", silent = t
 vim.keymap.set("n", "<leader>tv", "<CMD>:vsplit<CR>", { desc = "Split [V]ertically" })
 vim.keymap.set("n", "<leader>th", "<CMD>:split<CR>", { desc = "Split [H]orizontally" })
 vim.keymap.set("n", "<leader>tt", "<CMD>:wincmd w<CR>", { desc = "Cycle Splits" })
+vim.keymap.set("n", "<leader>te", "<C-w>=", { desc = "[E]qualize Splits" })
 
 -- diagnostics navigation
 vim.keymap.set("n", "&", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic" })

@@ -1,8 +1,11 @@
-font-family = Input Mono
-font-size = 15
+theme = Monokai Pro Machine
+font-family = SF Mono Terminal
+# font-family = Input Mono
+# font-family-bold = Source Code Pro Medium
+font-size = 14
 font-thicken = true
 font-thicken-strength = 0
-adjust-cell-height = 40% 
+adjust-cell-height = 60%
 
 window-padding-x = 12
 window-padding-y = 0

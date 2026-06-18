@@ -69,6 +69,7 @@ alias logroinstall="cd ~/Code/logro && pnpx expo install"
 
 alias neoconfig="cd ~/.config/nvim/ && nvim ."
 alias hxconfig="nvim ~/.config/helix/config.toml"
+alias ghconfig="nvim ~/Library/Application\ Support/com.mitchellh.ghostty/config"
 alias zshrc="nvim ~/.zshrc"
 alias lg="lazygit"
 alias nv="nvim"
@@ -81,6 +82,13 @@ alias dssa="cd ~/Code/instant-backend/ && ./deployService staging adminApi"
 alias dfsa="cd ~/Code/instant-backend/ && ./deployFunction staging adminApi"
 
 alias pgo="pnpm i && pnpm run start"
+
+# Replace cat command with bat
+alias cat='bat'
+
+# Replace ls command with eza
+alias ls='eza --icons'   # alias it
+alias ll='eza -la --icons --git'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -106,9 +114,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Dev layout - 3-pane Ghostty setup
-alias start:logro="osascript ~/scripts/dev-layout.applescript"
-alias start:dashboard="osascript ~/scripts/dashboard-layout.applescript"
-alias start:forge="osascript ~/scripts/forge-layout.applescript"
+alias start:logro="osascript ~/Code/scripts/dev-layout.applescript"
+alias start:dashboard="osascript ~/Code/scripts/dashboard-layout.applescript"
+alias start:forge="osascript ~/Code/scripts/forge-layout.applescript"
 
 # pnpm
 export PNPM_HOME="/Users/jamesofficer/Library/pnpm"
@@ -118,3 +126,5 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"

@@ -21,6 +21,7 @@ vim.opt.mouse = "a"
 -- don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 vim.opt.cmdheight = 0
+vim.opt.shortmess:append("WIFcs")
 
 -- sync clipboard between OS and Neovim.
 --  remove this option if you want your OS clipboard to remain independent.

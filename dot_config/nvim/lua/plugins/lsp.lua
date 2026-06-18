@@ -113,41 +113,11 @@ local function rename_symbol()
   end)
 end
 
-local function add_missing_imports()
+local function apply_kind(kind)
   vim.lsp.buf.code_action({
     apply = true,
-    context = {
-      only = { "source.addMissingImports" },
-      diagnostics = {},
-    },
+    context = { only = { kind }, diagnostics = {} },
   })
-end
-
-local function run_code_action(kind, bufnr, cb)
-  bufnr = bufnr or 0
-  local clients = vim.lsp.get_clients({ bufnr = bufnr, method = "textDocument/codeAction" })
-  local pending = #clients
-  if pending == 0 then
-    if cb then cb() end
-    return
-  end
-
-  for _, client in ipairs(clients) do
-    local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
-    params.context = { only = { kind }, diagnostics = {} }
-    client:request("textDocument/codeAction", params, function(_, result)
-      for _, action in ipairs(result or {}) do
-        if action.edit then
-          vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
-        end
-        if action.command then
-          client:request("workspace/executeCommand", action.command, function() end, bufnr)
-        end
-      end
-      pending = pending - 1
-      if pending == 0 and cb then cb() end
-    end, bufnr)
-  end
 end
 
 local function organize_imports_kind(bufnr)
@@ -155,24 +125,6 @@ local function organize_imports_kind(bufnr)
     if client.name == "biome" then return "source.organizeImports.biome" end
   end
   return "source.organizeImports.ts"
-end
-
-local function organize_imports(bufnr)
-  run_code_action(organize_imports_kind(bufnr), bufnr)
-end
-
-local function remove_unused_imports(bufnr)
-  bufnr = bufnr or 0
-  run_code_action(organize_imports_kind(bufnr), bufnr, function()
-    run_code_action("source.removeUnused", bufnr)
-  end)
-end
-
-local function fix_autofixable_issues(bufnr)
-  bufnr = bufnr or 0
-  run_code_action(organize_imports_kind(bufnr), bufnr, function()
-    run_code_action("source.fixAll.biome", bufnr)
-  end)
 end
 
 -- configure each lsp server on the table
@@ -187,15 +139,8 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
         { buffer = bufnr, desc = "Code action", })
 
-      vim.keymap.set("n", "<leader>cf", function() fix_autofixable_issues(bufnr) end,
-        { buffer = bufnr, desc = "Fix autofixable issues + organize imports", })
-
-      vim.keymap.set("n", "<leader>cF", function()
-        require("conform").format({
-          bufnr = bufnr,
-          async = true,
-          lsp_format = "fallback",
-        })
+      vim.keymap.set("n", "<leader>cf", function()
+        require("conform").format({ bufnr = bufnr, async = true, lsp_format = "fallback" })
       end, { buffer = bufnr, desc = "Format buffer", })
 
       vim.keymap.set("n", "<leader>cp", peek_definition,
@@ -204,15 +149,14 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "<leader>cr", rename_symbol,
         { buffer = bufnr, desc = "Rename symbol", })
 
-      vim.keymap.set("n", "<leader>ci", add_missing_imports,
+      vim.keymap.set("n", "<leader>ci", function() apply_kind("source.addMissingImports") end,
         { buffer = bufnr, desc = "Import missing imports", })
 
-      vim.keymap.set("n", "<leader>co", function()
-        organize_imports(bufnr)
-      end, { buffer = bufnr, desc = "Organize imports", })
+      vim.keymap.set("n", "<leader>co", function() apply_kind(organize_imports_kind(bufnr)) end,
+        { buffer = bufnr, desc = "Organize imports", })
 
-      vim.keymap.set("n", "<leader>cu", function() remove_unused_imports(bufnr) end,
-        { buffer = bufnr, desc = "Remove unused + organize imports", })
+      vim.keymap.set("n", "<leader>cu", function() apply_kind("source.removeUnused") end,
+        { buffer = bufnr, desc = "Remove unused", })
 
       vim.keymap.set("n", "<leader>cx", function()
         vim.lsp.codelens.refresh({ bufnr = bufnr })

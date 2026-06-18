@@ -7,6 +7,7 @@ require("snacks").setup({
   picker = { enabled = true },
   gitbrowse = { enabled = true },
   lazygit = { enabled = true },
+  gh = { enabled = true },
 })
 
 -- prevent native autocomplete popup inside picker input
@@ -80,8 +81,12 @@ map("<leader>su", function() picker.undo() end, "[S]earch [U]ndo History")
 map("<leader>gs", function() picker.git_status() end, "[G]it [S]tatus")
 map("<leader>gl", function() picker.git_log() end, "[G]it [L]og")
 map("<leader>gB", function() Snacks.gitbrowse() end, "[G]it [B]rowse (open in browser)")
+map("<leader>gi", function() Snacks.picker.gh_issue() end, "[I]ssues (open)")
+map("<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, "[G]itHub [I]ssues (all)")
+map("<leader>gp", function() Snacks.picker.gh_pr() end, "Open [P]ull Requests")
+map("<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, "Alll [P]ull Requests")
 
 -- misc
 map("<leader>sA", function() picker() end, "All Pickers")
 map("<leader>sH", function() picker.pickers() end, "Picker [H]istory")
-map("<leader>uc", function() picker.colorschemes() end, "[U]I [C]olorscheme")
+map("<leader>uc", function() picker.colorschemes({ builtin = false }) end, "[U]I [C]olorscheme")

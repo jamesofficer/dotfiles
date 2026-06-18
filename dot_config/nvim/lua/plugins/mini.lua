@@ -6,6 +6,11 @@ vim.pack.add({
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 require("mini.cursorword").setup()
+require("mini.splitjoin").setup({
+  mappings = {
+    toggle = "gJ",
+  },
+})
 
 local ai = require("mini.ai")
 ai.setup({
@@ -35,14 +40,10 @@ require("mini.indentscope").setup({
   symbol = "│",
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#3B4449", nocombine = true })
-    vim.api.nvim_set_hl(0, "MiniCursorword", { bg = "#2A3135", nocombine = true })
-    vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { bg = "#323B40", nocombine = true })
-  end,
-})
-
-vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#3B4449", nocombine = true })
-vim.api.nvim_set_hl(0, "MiniCursorword", { bg = "#2A3135", nocombine = true })
-vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { bg = "#323B40", nocombine = true })
+local function set_mini_hl()
+  vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
+  vim.api.nvim_set_hl(0, "MiniCursorword", { link = "Visual" })
+  vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { link = "Visual" })
+end
+set_mini_hl()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = set_mini_hl })

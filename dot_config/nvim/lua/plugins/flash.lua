@@ -5,10 +5,17 @@ vim.pack.add({
 
 require("flash").setup()
 
--- make the jump label stand out — invert Normal so it adapts to light/dark themes
+-- distinguish label from matches: label = bright/inverted, matches = dim
 local function set_flash_hl()
   local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
-  vim.api.nvim_set_hl(0, "FlashLabel", { fg = normal.bg, bg = normal.fg, bold = true })
+  local accent = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false })
+  local label_fg = normal.bg or "#000000"
+  local label_bg = accent.fg or normal.fg or "#7aa2f7"
+
+  vim.api.nvim_set_hl(0, "FlashLabel", { fg = label_fg, bg = label_bg, bold = true })
+  vim.api.nvim_set_hl(0, "FlashMatch", { link = "Comment" })
+  vim.api.nvim_set_hl(0, "FlashCurrent", { link = "IncSearch" })
+  vim.api.nvim_set_hl(0, "FlashBackdrop", { link = "Comment" })
 end
 set_flash_hl()
 vim.api.nvim_create_autocmd("ColorScheme", { callback = set_flash_hl })
