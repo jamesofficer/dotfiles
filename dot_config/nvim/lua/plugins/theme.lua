@@ -9,7 +9,20 @@ vim.pack.add({
   { src = "https://github.com/EdenEast/nightfox.nvim",     name = "nightfox" },
   { src = "https://github.com/sainnhe/everforest",         name = "everforest" },
   { src = "https://github.com/boningmaple/mac-clear",      name = "mac-clear" },
+  { src = "https://github.com/ellisonleao/gruvbox.nvim",   name = "gruvbox" },
+  { src = "https://github.com/rose-pine/neovim",           name = "rose-pine" },
+  { src = "https://github.com/sainnhe/edge",               name = "edge" },
+  { src = "https://github.com/Mofiqul/adwaita.nvim",       name = "adwaita" },
+  { src = "https://github.com/polirritmico/monokai-nightasty.nvim", name = "monokai-nightasty" },
 }, { confirm = false })
+
+pcall(function()
+  require("gruvbox").setup({})
+end)
+
+pcall(function()
+  require("rose-pine").setup({})
+end)
 
 pcall(function()
   require("github-theme").setup({})

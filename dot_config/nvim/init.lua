@@ -25,6 +25,7 @@ require("plugins.trouble")
 require("plugins.arrow")
 require("plugins.diffview")
 require("plugins.better-ts-errors")
+require("plugins.refactoring")
 
 -- uncomment to enable automatic plugin updates
 -- vim.pack.update()

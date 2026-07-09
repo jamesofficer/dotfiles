@@ -130,9 +130,13 @@ end
 -- configure each lsp server on the table
 -- to check what clients are attached to the current buffer, use
 -- `:checkhealth vim.lsp`. to view default lsp keybindings, use `:h lsp-defaults`.
+local ok_blink, blink = pcall(require, "blink.cmp")
+local lsp_capabilities = ok_blink and blink.get_lsp_capabilities() or nil
+
 for server, config in pairs(lsp_servers) do
   vim.lsp.config(server, {
     settings = config,
+    capabilities = lsp_capabilities,
 
     -- only create the keymaps if the server attaches successfully
     on_attach = function(_, bufnr)

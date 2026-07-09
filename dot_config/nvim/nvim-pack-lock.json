@@ -4,9 +4,17 @@
       "rev": "4d229141546290746c82ac90f5afc2786865b5f3",
       "src": "https://github.com/ThePrimeagen/99"
     },
+    "adwaita": {
+      "rev": "c607954f7b2cf56b24e921db0dab4749f3430a22",
+      "src": "https://github.com/Mofiqul/adwaita.nvim"
+    },
     "arrow.nvim": {
       "rev": "6e0f726f55f99332dd726a53effd6813786b6d49",
       "src": "https://github.com/otavioschwanck/arrow.nvim"
+    },
+    "async.nvim": {
+      "rev": "e2a813be9cd143ab1181de6d8a0720e0230cd86e",
+      "src": "https://github.com/lewis6991/async.nvim"
     },
     "better-ts-errors.nvim": {
       "rev": "d57a7794b271e1a0010d0328e5d3f18e20f1face",
@@ -32,6 +40,10 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "edge": {
+      "rev": "7ec78c21bd8f0b2b0b47043bb1e730c561647c72",
+      "src": "https://github.com/sainnhe/edge"
+    },
     "everforest": {
       "rev": "aeef62ee97872d2557d25904d160ec93a4a355f8",
       "src": "https://github.com/sainnhe/everforest"
@@ -55,6 +67,10 @@
     "grug-far.nvim": {
       "rev": "21790e59dd0109a92a70cb874dd002af186314f5",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
+    },
+    "gruvbox": {
+      "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
+      "src": "https://github.com/ellisonleao/gruvbox.nvim"
     },
     "keep-split-ratio.nvim": {
       "rev": "906aa5196e194dca12c7729069760d42e77ddcff",
@@ -83,6 +99,10 @@
     "mini.nvim": {
       "rev": "5849ef04c32a6a8e55957b946c0a275801d87530",
       "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "monokai-nightasty": {
+      "rev": "1e9b92006782a1217d0a7a871b871768f1cbf5ed",
+      "src": "https://github.com/polirritmico/monokai-nightasty.nvim"
     },
     "monokai-pro": {
       "rev": "a68e38b8e55d69a215d0f02598900a79c356da9d",
@@ -128,6 +148,14 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "refactoring.nvim": {
+      "rev": "7eaa150061ea18fdbe18fbb924d236e3ddccc57d",
+      "src": "https://github.com/ThePrimeagen/refactoring.nvim"
+    },
+    "rose-pine": {
+      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
+      "src": "https://github.com/rose-pine/neovim"
     },
     "selenized": {
       "rev": "8663bf6b222d911e04a9f1b391c3b1ccd22adb69",

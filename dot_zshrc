@@ -117,6 +117,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 alias start:logro="osascript ~/Code/scripts/dev-layout.applescript"
 alias start:dashboard="osascript ~/Code/scripts/dashboard-layout.applescript"
 alias start:forge="osascript ~/Code/scripts/forge-layout.applescript"
+alias stop:logro="zmx kill logro.code logro.ai logro.dev"
 
 # pnpm
 export PNPM_HOME="/Users/jamesofficer/Library/pnpm"
@@ -128,3 +129,12 @@ esac
 
 export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
+
+# zmx
+if [[ -n $ZMX_SESSION ]]; then
+  export PS1="[$ZMX_SESSION] ${PS1}"
+fi
+
+if command -v zmx &> /dev/null; then
+  eval "$(zmx completions zsh)"
+fi
