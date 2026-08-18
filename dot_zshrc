@@ -71,6 +71,7 @@ alias neoconfig="cd ~/.config/nvim/ && nvim ."
 alias hxconfig="nvim ~/.config/helix/config.toml"
 alias ghconfig="nvim ~/Library/Application\ Support/com.mitchellh.ghostty/config"
 alias zshrc="nvim ~/.zshrc"
+alias zshrc-local="nvim ~/.zshrc.local"
 alias lg="lazygit"
 alias nv="nvim"
 alias cl="claude"
@@ -118,6 +119,8 @@ alias start:logro="osascript ~/Code/scripts/dev-layout.applescript"
 alias start:dashboard="osascript ~/Code/scripts/dashboard-layout.applescript"
 alias start:forge="osascript ~/Code/scripts/forge-layout.applescript"
 alias stop:logro="zmx kill logro.code logro.ai logro.dev"
+alias stop:dashboard="zmx kill dashboard.code dashboard.ai dashboard.dev"
+alias stop:forge="zmx kill forge.code forge.ai forge.dev"
 
 # pnpm
 export PNPM_HOME="/Users/jamesofficer/Library/pnpm"
@@ -138,3 +141,6 @@ fi
 if command -v zmx &> /dev/null; then
   eval "$(zmx completions zsh)"
 fi
+
+# local secrets, not tracked in dotfiles repo
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
