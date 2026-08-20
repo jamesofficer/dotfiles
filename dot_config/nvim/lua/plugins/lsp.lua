@@ -4,6 +4,7 @@
 -- see `:h lspconfig-all` for available servers and their settings
 local lsp_servers = {
   biome = {},
+  vtsls = {},
   lua_ls = {
     -- https://luals.github.io/wiki/settings/ | `:h nvim_get_runtime_file`
     Lua = { workspace = { library = vim.api.nvim_get_runtime_file("lua", true) }, },
@@ -22,7 +23,9 @@ vim.pack.add({
 }, { confirm = false })
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+-- automatic_enable is off so the lsp_servers table above is the only thing
+-- that decides which servers actually start
+require("mason-lspconfig").setup({ automatic_enable = false })
 require("mason-tool-installer").setup({
   ensure_installed = vim.tbl_keys(lsp_servers),
 })
@@ -113,19 +116,7 @@ local function rename_symbol()
   end)
 end
 
-local function apply_kind(kind)
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = { only = { kind }, diagnostics = {} },
-  })
-end
-
-local function organize_imports_kind(bufnr)
-  for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr or 0 })) do
-    if client.name == "biome" then return "source.organizeImports.biome" end
-  end
-  return "source.organizeImports.ts"
-end
+local import_actions = require("import_actions")
 
 -- configure each lsp server on the table
 -- to check what clients are attached to the current buffer, use
@@ -153,14 +144,11 @@ for server, config in pairs(lsp_servers) do
       vim.keymap.set("n", "<leader>cr", rename_symbol,
         { buffer = bufnr, desc = "Rename symbol", })
 
-      vim.keymap.set("n", "<leader>ci", function() apply_kind("source.addMissingImports") end,
+      vim.keymap.set("n", "<leader>ci", function() import_actions.add_missing_imports(bufnr) end,
         { buffer = bufnr, desc = "Import missing imports", })
 
-      vim.keymap.set("n", "<leader>co", function() apply_kind(organize_imports_kind(bufnr)) end,
-        { buffer = bufnr, desc = "Organize imports", })
-
-      vim.keymap.set("n", "<leader>cu", function() apply_kind("source.removeUnused") end,
-        { buffer = bufnr, desc = "Remove unused", })
+      vim.keymap.set("n", "<leader>co", function() import_actions.clean_imports(bufnr) end,
+        { buffer = bufnr, desc = "Clean and organize imports", })
 
       vim.keymap.set("n", "<leader>cx", function()
         vim.lsp.codelens.refresh({ bufnr = bufnr })

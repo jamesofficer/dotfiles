@@ -53,15 +53,15 @@ alias inst=installPackages
 alias st=runDevServer
 alias csw="cswap --switch"
 
-alias ibr="cd ~/Code/instant-backend/"
-alias idr="cd ~/Code/instant-dashboard/"
-alias iir="cd ~/Code/instant-interfaces/"
-alias iuc="cd ~/Code/instant-ui-components/"
-alias ifr="cd ~/Code/instant-forge-ui/"
-alias ijs="cd ~/Code/instant-js/"
-alias isf="cd ~/Code/instant-shared-functions/"
-alias ier="cd ~/Code/instant-emails/"
-alias iee="cd ~/Code/instant-emails-engine/"
+alias ibr="cd ~/Code/instant/backend/"
+alias idr="cd ~/Code/instant/dashboard/"
+alias iir="cd ~/Code/instant/interfaces/"
+alias idb="cd ~/Code/instant/db/"
+alias ifr="cd ~/Code/instant/forge/"
+alias ier="cd ~/Code/instant/emails/"
+alias iee="cd ~/Code/instant/emails-engine/"
+alias ipt="cd ~/Code/instant/preview-tool/"
+alias lng="cd ~/Code/langrove/"
 
 alias logro="cd ~/Code/logro/"
 alias logrostart="cd ~/Code/logro/packages/app && pnpm run start:sim"
@@ -69,12 +69,13 @@ alias logroinstall="cd ~/Code/logro && pnpx expo install"
 
 alias neoconfig="cd ~/.config/nvim/ && nvim ."
 alias hxconfig="nvim ~/.config/helix/config.toml"
+alias herdrconfig="nvim ~/.config/herdr/config.toml"
 alias ghconfig="nvim ~/Library/Application\ Support/com.mitchellh.ghostty/config"
 alias zshrc="nvim ~/.zshrc"
 alias zshrc-local="nvim ~/.zshrc.local"
 alias lg="lazygit"
 alias nv="nvim"
-alias cl="claude"
+alias cc="claude"
 
 alias rs="npm run start"
 alias rb="npm run build"
@@ -82,7 +83,7 @@ alias rb="npm run build"
 alias dssa="cd ~/Code/instant-backend/ && ./deployService staging adminApi"
 alias dfsa="cd ~/Code/instant-backend/ && ./deployFunction staging adminApi"
 
-alias pgo="pnpm i && pnpm run start"
+alias pgo="pnpm i && pnpm run dev"
 
 # Replace cat command with bat
 alias cat='bat'
@@ -91,16 +92,9 @@ alias cat='bat'
 alias ls='eza --icons'   # alias it
 alias ll='eza -la --icons --git'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/jamesofficer/.lmstudio/bin"
 # End of LM Studio CLI section
-
-export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
-export PATH="$JAVA_HOME/bin:$PATH"
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$ANDROID_HOME
@@ -130,8 +124,16 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# fnm
+if (( $+commands[fnm] )); then
+  eval "$(fnm env --use-on-cd --corepack-enabled --shell zsh)"
+fi
+
 export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
+
+# completions
+autoload -Uz compinit && compinit
 
 # zmx
 if [[ -n $ZMX_SESSION ]]; then
@@ -142,5 +144,14 @@ if command -v zmx &> /dev/null; then
   eval "$(zmx completions zsh)"
 fi
 
-# local secrets, not tracked in dotfiles repo
-[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+# >>> headroom persistent env >>>
+export ANTHROPIC_BASE_URL="http://127.0.0.1:8787"
+export OPENAI_BASE_URL="http://127.0.0.1:8787/v1"
+export ENABLE_TOOL_SEARCH="true"
+export GROK_CLI_CHAT_PROXY_BASE_URL="http://127.0.0.1:6767/v1"
+# <<< headroom persistent env <<<
+
+alias hrdash="headroom dashboard --port 8787"
+alias hrdash-grok="headroom dashboard --port 6767"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

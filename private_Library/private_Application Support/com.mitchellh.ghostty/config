@@ -1,18 +1,71 @@
+# theme = Gruvbox Material Dark
+# theme = Monokai Pro Machine
 theme = Monokai Pro Machine
-font-family = SF Mono Terminal
+font-family = Google Sans Mono
+# font-family = Lilex
+# font-family = Jetbrains Mono
+# font-family = SF Mono Terminal
 # font-family = Input Mono
 # font-family-bold = Source Code Pro Medium
-font-size = 14
+font-size = 15
 font-thicken = true
 font-thicken-strength = 0
-adjust-cell-height = 60%
+adjust-cell-height = 30%
 
 window-padding-x = 12
 window-padding-y = 0
-window-padding-color = extend
+window-padding-color = extend-always
+window-padding-balance = true
+window-title-font-family = Lilex
+# window-decoration = none
+# window-show-tab-bar = never
+
 
 keybind = performable:super+enter=toggle_split_zoom
 keybind = shift+enter=text:\n
-keybind = super+r=prompt_tab_title
+keybind = super+r=unbind
+keybind = super+shift+r=prompt_tab_title
+keybind = super+[=unbind
+keybind = super+]=unbind
+keybind = super+up=unbind
+keybind = super+down=unbind
+
+keybind = super+digit_1=unbind
+keybind = super+1=unbind
+keybind = super+digit_2=unbind
+keybind = super+2=unbind
+keybind = super+digit_3=unbind
+keybind = super+3=unbind
+keybind = super+digit_4=unbind
+keybind = super+4=unbind
+keybind = super+digit_5=unbind
+keybind = super+5=unbind
+keybind = super+digit_6=unbind
+keybind = super+6=unbind
+keybind = super+digit_7=unbind
+keybind = super+7=unbind
+keybind = super+digit_8=unbind
+keybind = super+8=unbind
+keybind = super+9=unbind
+
+keybind = super+shift+digit_1=goto_tab:1
+keybind = super+shift+1=goto_tab:1
+keybind = super+shift+digit_2=goto_tab:2
+keybind = super+shift+2=goto_tab:2
+keybind = super+shift+digit_3=goto_tab:3
+keybind = super+shift+3=goto_tab:3
+keybind = super+shift+digit_4=goto_tab:4
+keybind = super+shift+4=goto_tab:4
+keybind = super+shift+digit_5=goto_tab:5
+keybind = super+shift+5=goto_tab:5
+keybind = super+shift+digit_6=goto_tab:6
+keybind = super+shift+6=goto_tab:6
+keybind = super+shift+digit_7=goto_tab:7
+keybind = super+shift+7=goto_tab:7
+keybind = super+shift+digit_8=goto_tab:8
+keybind = super+shift+8=goto_tab:8
+keybind = super+shift+9=last_tab
+keybind = super+shift+[=goto_split:previous
+keybind = super+shift+]=goto_split:next
 
 macos-option-as-alt = true

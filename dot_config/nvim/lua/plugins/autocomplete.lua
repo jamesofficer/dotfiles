@@ -40,7 +40,7 @@ require("blink.cmp").setup({
     nerd_font_variant = "mono",
   },
   completion = {
-    accept = { auto_brackets = { enabled = true } },
+    accept = { auto_brackets = { enabled = false } },
     documentation = { auto_show = true, auto_show_delay_ms = 200 },
     ghost_text = { enabled = false },
     menu = {

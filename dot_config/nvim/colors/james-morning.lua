@@ -1,0 +1,18 @@
+require("james_theme").apply("james-morning", {
+  background = "light",
+  bg = "#F8EFE7",
+  bg_cursorline = "#EFE5DC",
+  bg_float = "#E8DCCC",
+  fg = "#000000",
+  blue = "#2573B6",
+  tan = "#C49D7B",
+  green_bg = "#D6F5B3",
+  red_bg = "#FFB6B6",
+  orange_bg = "#C8E4F5",
+  blue_bg = "#FEABC5",
+  purple_bg = "#FFCBA8",
+  yellow_bg = "#FFF2A8",
+  green = "#218871",
+  purple = "#8D44AC",
+  red = "#D32F2F",
+})

@@ -56,7 +56,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣", }
 vim.opt.fillchars:append({ eob = " " })
 
 -- preview substitutions live, as you type!
@@ -64,6 +64,9 @@ vim.opt.inccommand = "split"
 
 -- show which line your cursor is on
 vim.opt.cursorline = true
+
+-- keep context above/below the cursor (matches the 6-line J/K jumps)
+vim.opt.scrolloff = 6
 
 -- set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -97,6 +100,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })

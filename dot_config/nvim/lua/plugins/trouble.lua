@@ -11,6 +11,3 @@ map("<leader>ds", "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Troub
 map("<leader>dl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP (Trouble)")
 map("<leader>dL", "<cmd>Trouble loclist toggle<cr>", "Location List (Trouble)")
 map("<leader>dQ", "<cmd>Trouble qflist toggle<cr>", "Quickfix List (Trouble)")
-
-map("&", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
-map("|", function() vim.diagnostic.jump({ count = -1 }) end, "Prev Diagnostic")

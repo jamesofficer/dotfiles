@@ -1,4 +1,6 @@
 -- keybinding helper
+vim.pack.add({ "https://github.com/echasnovski/mini.nvim" }, { confirm = false })
+
 local miniclue = require("mini.clue")
 miniclue.setup({
   triggers = {

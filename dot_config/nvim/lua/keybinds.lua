@@ -20,7 +20,11 @@ vim.keymap.set("n", "<leader>te", "<C-w>=", { desc = "[E]qualize Splits" })
 vim.keymap.set("n", "&", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic" })
 vim.keymap.set("n", "|", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Prev Diagnostic" })
 
-vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "[G]it Lazy[g]it" })
+vim.keymap.set("n", "<leader>gg", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  local dir = file ~= "" and vim.fs.dirname(file) or vim.fn.getcwd()
+  Snacks.lazygit({ cwd = vim.fs.root(dir, ".git") or dir })
+end, { desc = "[G]it Lazy[g]it" })
 
 -- quickfix
 vim.keymap.set("n", "<leader>qa", function()

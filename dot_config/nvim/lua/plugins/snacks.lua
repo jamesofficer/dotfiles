@@ -6,9 +6,42 @@ vim.pack.add({
 require("snacks").setup({
   picker = { enabled = true },
   gitbrowse = { enabled = true },
-  lazygit = { enabled = true },
+  lazygit = {
+    enabled = true,
+    configure = true,
+    theme = {
+      [241]                      = { fg = "Special" },
+      activeBorderColor          = { fg = "Function", bold = true },
+      cherryPickedCommitBgColor  = { fg = "@keyword.conditional" },
+      cherryPickedCommitFgColor  = { fg = "Function" },
+      defaultFgColor             = { fg = "Normal" },
+      inactiveBorderColor        = { fg = "Comment" },
+      optionsTextColor           = { fg = "Function" },
+      searchedLineBgColor        = { fg = "Search" },
+      searchingActiveBorderColor = { fg = "Function", bold = true },
+      selectedLineBgColor        = { bg = "CursorLine" },
+      unstagedChangesColor       = { fg = "DiagnosticError" },
+    },
+  },
   gh = { enabled = true },
 })
+
+-- keep lazygit's lightTheme flag tied to the active colorscheme's background
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    local ok, snacks = pcall(require, "snacks")
+    if not ok or not snacks.config or not snacks.config.lazygit then return end
+    local cfg = snacks.config.lazygit
+    cfg.config = cfg.config or {}
+    cfg.config.gui = cfg.config.gui or {}
+    cfg.config.gui.theme = cfg.config.gui.theme or {}
+    cfg.config.gui.theme.lightTheme = vim.o.background == "light"
+    pcall(function() snacks.lazygit.update_config() end)
+  end,
+})
+vim.schedule(function()
+  vim.api.nvim_exec_autocmds("ColorScheme", { pattern = vim.g.colors_name or "" })
+end)
 
 -- prevent native autocomplete popup inside picker input
 vim.api.nvim_create_autocmd("FileType", {

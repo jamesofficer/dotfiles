@@ -1,0 +1,18 @@
+require("james_theme").apply("james-night", {
+  background = "dark",
+  bg = "#1B2527",
+  bg_cursorline = "#253031",
+  bg_float = "#2F3A3B",
+  fg = "#ACC9C2",
+  blue = "#A3EF51",
+  tan = "#475C6E",
+  green_bg = "#528D4E",
+  red_bg = "#5B3838",
+  orange_bg = "#5B4838",
+  blue_bg = "#1B4A6B",
+  purple_bg = "#5F3770",
+  yellow_bg = "#5B5B38",
+  green = "#56C29A",
+  purple = "#D48FF2",
+  red = "#FF6464",
+})

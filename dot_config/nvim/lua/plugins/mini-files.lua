@@ -1,4 +1,6 @@
 -- file explorer
+vim.pack.add({ "https://github.com/echasnovski/mini.nvim" }, { confirm = false })
+
 local minifiles = require("mini.files")
 minifiles.setup({
   mappings = {
