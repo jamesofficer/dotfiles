@@ -14,13 +14,28 @@
 # Git branch naming
 
 - For packages in the `instant` repo: `jo/[fix|feat|chore]/DEV-XXXX-branch-description` (e.g. `jo/fix/DEV-1819-address-review-stars-feedback`)
-- For `logro`: `[fix|feat|chore]/LOG-XXX/branch-description` (e.g. `feat/LOG-123/add-user-settings`)
+- For `logro`: `[fix|feat|chore|docs]/<github-issue-number>/branch-description` (e.g. `fix/389/timer-completed-sets`)
 - If unsure, use conventional commit style branch names (e.g. `feat/add-user-settings`).
+
+# Rules for the code you write
+
+1. **Think before you code.** For design decisions, give 2–3 options with their trade-offs and a recommendation. Do not use the first idea without question.
+2. **Push back, and ask.** If a request seems wrong, say why and give an alternative before you start. If a request is not clear, ask. Do not guess. Then follow the user's decision.
+3. **The best code is no code.** First, look for existing code, a library, or a platform feature that does the job. The best PRs remove more lines than they add. Delete dead code and commented-out code.
+4. **Fix the root cause, not the symptom.**
+5. **Code is for humans.** Write it to be read. Clear is better than clever. If a name is hard to find, the design is probably wrong.
+6. **Keep coupling loose. Earn each abstraction.** Duplication is cheaper than the wrong abstraction. Wait for 2–3 real uses before you abstract.
+7. **Make invalid states impossible and errors loud.** Use types so that bad data cannot exist. Do not hide errors or add silent fallbacks.
+8. **Follow the codebase.** Use the patterns that are already there, not your own preferences.
+9. **Leave it better than you found it.** When a refactor makes your change simpler, refactor the code you touch. Keep it small, and tell the user.
+10. **Test behaviour, not implementation.** Each test must catch a bug that a user could see. A small number of good tests is better than many weak tests.
 
 # Code style
 
 - Avoid unnecessary comments — if the code is easy to understand on its own, don't comment it.
 - Any comments written in code must be in ASD-STE100 Simplified Technical English.
+- Write each comment in the fewest lines it fits in at the file's normal line width (about 80 characters if unsure). When a comment needs more than one line, taper it like a Laravel-style comment block: each line shorter than the line above it, ideally by 3-5 characters. Get the taper by rewording or moving a line break to a natural spot — the line count stays the same. If the line count and the taper conflict, the fewest lines wins.
+- Separate control-flow blocks (`if`, `for`, `while`, `switch`, and `try`/`catch`) from surrounding statements with one blank line. Keep linked clauses such as `else`, `else if`, `catch`, and `finally` attached to the preceding block.
 
 # React code style
 
@@ -28,7 +43,7 @@
 
 Structure non-trivial React logic in three layers:
 
-1. **Pure functions in `lib`.** Extract single-purpose, pure functions to a lib file (e.g. `src/lib/cropImage.ts`). No React imports, explicit input/output types, no side effects. Colocate the test file (`cropImage.ts` + `cropImage.test.ts`) and cover it thoroughly.
+1. **Pure functions in `lib`.** Extract single-purpose, pure functions to a lib file (e.g. `src/lib/cropImage.ts`). No React imports, explicit input/output types, no side effects. Colocate the test file (`cropImage.ts` + `cropImage.test.ts`).
 2. **A hook per responsibility.** Wrap the lib function in a hook (e.g. `useCropImage`) that only orchestrates: it calls the lib function and manages async/loading/error state, or wires it into a data-fetching library. Business logic stays in the lib layer, not the hook.
 3. **The component consumes the hook(s).** Keep the component focused on wiring hook output to JSX.
 
