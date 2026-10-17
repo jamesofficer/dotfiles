@@ -18,7 +18,7 @@ vim.pack.add({
   { src = "https://github.com/serhez/teide.nvim",                   name = "teide" },
 }, { confirm = false })
 
-local DEFAULT_COLORSCHEME = "teide-dimmed"
+local THEMES = { dark = "teide-dimmed", light = "james-morning" }
 
 -- per-theme setup, keyed by a lua pattern matched against the colorscheme name.
 -- these run lazily (see the ColorSchemePre autocmd below) so switching themes
@@ -77,6 +77,7 @@ local theme_configs = {
   ["^teide"] = function()
     require("teide").setup({
       style = "dimmed", -- darker | dark | dimmed | light
+      transparent = true,
     })
   end,
 }
@@ -125,4 +126,15 @@ local function deepwhite_overrides()
 end
 vim.api.nvim_create_autocmd("ColorScheme", { pattern = "deepwhite", callback = deepwhite_overrides })
 
-vim.cmd.colorscheme(DEFAULT_COLORSCHEME)
+-- neovim asks the terminal for its background at startup. the reply can
+-- come after this file runs, so follow the option, not its first value.
+local function apply_theme()
+  local theme = THEMES[vim.o.background]
+
+  if vim.g.colors_name ~= theme then
+    vim.cmd.colorscheme(theme)
+  end
+end
+
+vim.api.nvim_create_autocmd("OptionSet", { pattern = "background", callback = apply_theme })
+apply_theme()

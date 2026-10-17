@@ -1,6 +1,6 @@
 require("james_theme").apply("james-morning", {
   background = "light",
-  bg = "#F8EFE7",
+  bg = "NONE",
   bg_cursorline = "#EFE5DC",
   bg_float = "#E8DCCC",
   fg = "#000000",
